@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#525253</color>
+    <color name="colorPrimaryDark">#004BA8</color>
+    <color name="colorAccent">#FFFFFF</color>
+    <color name="colorContrast">#000000</color>
+    <color name="colorElevation">#4A4A4B</color>
+    <color name="colorElevationText">#6E6E6F</color>
+    <color name="newRoutine">#808081</color>
+</resources>

@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">WorkOutList</string>
+    <string name="currentRoutines">Rutinas Actuales</string>
+    <string name="completedRoutines">Rutinas Completadas</string>
+    <string name="predefinedRoutines">Rutinas Predefinidas</string>
+    <string name="totalCompleted">Totales completadas: </string>
+    <string name="percentCompleted">Porcentaje completado: </string>
+    <string name="createRoutine">Crea tu propia rutina</string>
+    <string name="name">Nombre: </string>
+    <string name="hintName">Nombre de la rutina</string>
+    <string name="numberReps">Número de ejercicios: </string>
+    <string name="typeRoutine">Tipo: </string>
+    <string name="buttonAdd">Añadir</string>
+    <string name="hintNameTask">Nombre del ejercicio</string>
+    <string name="numberRepsTask">Objetivo de repeticiones: </string>
+    <string name="numberSets">Numero de series: </string>
+    <string name="workOutRoutine">Rutina de entrenamiento</string>
+    <string name="addTask">Añade los ejercicios</string>
+    <string name="createRoutines">Crea tu rutina</string>
+</resources>

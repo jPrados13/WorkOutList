@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity"
+    android:background="@drawable/backg"
+    >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewCurrentRoutines"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="8dp"
+            app:cardUseCompatPadding="true"
+            app:cardBackgroundColor="@color/colorPrimary">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="6dp">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/currentRoutines"
+                    android:gravity="center"
+                    android:padding="4dp"
+                    android:elevation="10dp"
+                    android:textSize="20sp"
+                    android:background="@color/colorElevation"
+                    android:textColor="@color/colorAccent"
+                    android:layout_margin="10dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="8dp">
+
+                    <TextView
+                        android:id="@+id/textViewOnGoing"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.8"
+                        android:text="En Curso: "
+                        android:elevation="4dp"
+                        android:padding="4dp"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="16sp"
+                        android:layout_margin="5dp"/>
+
+                    <TextView
+                        android:id="@+id/textViewPercent"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.2"
+                        android:text="%"
+                        android:elevation="4dp"
+                        android:padding="4dp"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="16sp"
+                        android:layout_margin="5dp"/>
+                </LinearLayout>
+
+                <ProgressBar
+                    android:id="@+id/progressBarCurrents"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:progress="50"
+                    android:progressTint="@color/colorPrimaryDark"/>
+
+            </LinearLayout>
+
+
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewRoutinesCompleted"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="8dp"
+            app:cardUseCompatPadding="true"
+            app:cardBackgroundColor="@color/colorPrimary">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="6dp">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/completedRoutines"
+                    android:gravity="center"
+                    android:padding="4dp"
+                    android:elevation="10dp"
+                    android:textSize="20sp"
+                    android:background="@color/colorElevation"
+                    android:textColor="@color/colorAccent"
+                    android:layout_margin="10dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="8dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.8"
+                        android:text="@string/totalCompleted"
+                        android:elevation="4dp"
+                        android:padding="4dp"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="16sp"
+                        android:layout_margin="5dp"/>
+
+                    <TextView
+                        android:id="@+id/textViewNumberCompletes"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.2"
+                        android:text="10"
+                        android:elevation="4dp"
+                        android:padding="4dp"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="16sp"
+                        android:layout_margin="5dp"/>
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewExampleRoutines"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="8dp"
+            app:cardUseCompatPadding="true"
+            app:cardBackgroundColor="@color/colorPrimary">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="6dp">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/predefinedRoutines"
+                    android:gravity="center"
+                    android:padding="4dp"
+                    android:elevation="10dp"
+                    android:textSize="20sp"
+                    android:background="@color/colorElevation"
+                    android:textColor="@color/colorAccent"
+                    android:layout_margin="10dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="8dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.8"
+                        android:text="@string/percentCompleted"
+                        android:elevation="4dp"
+                        android:padding="4dp"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="16sp"
+                        android:layout_margin="5dp"/>
+
+                    <TextView
+                        android:id="@+id/textViewPercentPredefine"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.2"
+                        android:text="%"
+                        android:elevation="4dp"
+                        android:padding="4dp"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="16sp"
+                        android:layout_margin="5dp"/>
+                </LinearLayout>
+
+                <ProgressBar
+                    android:id="@+id/progressBarPredefine"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:progress="50"
+                    android:progressTint="@color/colorPrimaryDark"/>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewCreate"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="8dp"
+            app:cardUseCompatPadding="true"
+            app:cardBackgroundColor="@color/colorPrimary">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="6dp">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/createRoutine"
+                    android:gravity="center"
+                    android:padding="4dp"
+                    android:elevation="10dp"
+                    android:textSize="20sp"
+                    android:background="@color/colorElevation"
+                    android:textColor="@color/colorAccent"
+                    android:layout_margin="10dp"/>
+
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+</ScrollView>
