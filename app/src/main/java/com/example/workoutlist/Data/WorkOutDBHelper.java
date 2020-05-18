@@ -98,15 +98,23 @@ public class WorkOutDBHelper extends SQLiteOpenHelper {
     }
 
     //Actualizar una rutina
-    public long updateRoutine (Routine rutina){
+    public long updateRoutine (int idRutina){
+
+        Routine rutina = displayRoutineInfo(idRutina);
 
         SQLiteDatabase db = this.getWritableDatabase();
+
+        if (stepsCompletes(rutina.getId_Routine())>=rutina.getNumberSteps()){
+            rutina.setStatus("Hecho");
+        }else{
+            rutina.setStatus("Haciendo");
+        }
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(WorkOutContract.RoutineEntry.COLUMN_ROUTINE_NAME, rutina.getName());
         contentValues.put(WorkOutContract.RoutineEntry.COLUMN_ROUTINE_STATUS, rutina.getStatus());
         contentValues.put(WorkOutContract.RoutineEntry.COLUMN_ROUTINE_NSTEPS, rutina.getNumberSteps());
-        contentValues.put(WorkOutContract.RoutineEntry.COLUMN_ROUTINE_STEPSCOMP, rutina.getStepsCompleted());
+        contentValues.put(WorkOutContract.RoutineEntry.COLUMN_ROUTINE_STEPSCOMP, stepsCompletes(rutina.getId_Routine()));
         contentValues.put(WorkOutContract.RoutineEntry.COLUMN_ROUTINE_TYPE, rutina.getType());
 
         String selection = WorkOutContract.RoutineEntry._ID + " = ?";
@@ -148,13 +156,13 @@ public class WorkOutDBHelper extends SQLiteOpenHelper {
         return db.delete("Routines", "_ID = ?", new String[]{Integer.toString(id)});
     }
 
-    //Borrar una tarea
+    /*//Borrar una tarea
     public int deleteTask (int id){
 
         SQLiteDatabase db = this.getWritableDatabase();
 
         return db.delete("Tasks", "ID = ?",  new String[] {Integer.toString(id)});
-    }
+    }*/
 
     //Mostrar Rutinas no completadas
     public ArrayList<Routine> displayDataBaseInfoCurrents() {
@@ -271,10 +279,10 @@ public class WorkOutDBHelper extends SQLiteOpenHelper {
         return  routinesInfo;
     }
 
-    //Método igual que el anterior, pero para obtener solo las rutinas con un ID en especifico
-    public ArrayList<Routine> displayRoutineInfo(int id) {
+    //Método para obtener solo las rutinas con un ID en especifico
+    public Routine displayRoutineInfo(int id) {
 
-        ArrayList<Routine> routinesInfo = new ArrayList<Routine>();
+        Routine currentRoutine = new Routine();
         SQLiteDatabase db = this.getReadableDatabase();
 
         //La proyeccion nos va a indicar los campos de la tabla que nos interesa consultar.
@@ -308,7 +316,8 @@ public class WorkOutDBHelper extends SQLiteOpenHelper {
 
         //Con cada uno de los indices podemos recorrer las filas
 
-        while (cursor.moveToNext()){
+        if (cursor != null) {
+            cursor.moveToLast();
             int currentId = cursor.getInt(idColumn);
             String currentName = cursor.getString(nameColumn);
             String currentStatus = cursor.getString(statusColumn);
@@ -316,15 +325,74 @@ public class WorkOutDBHelper extends SQLiteOpenHelper {
             int currentStepsComp = cursor.getInt(stepsCompColumn);
             String currentType = cursor.getString(typeColumn);
 
-            if (currentName.isEmpty() || currentStatus.isEmpty() || Integer.toString(currentNSteps).isEmpty() || Integer.toString(currentStepsComp).isEmpty() || currentType.isEmpty()){
-                routinesInfo.add(null);
-            }else {
-                Routine currentRoutine = new Routine(currentId, currentName, currentStatus, currentNSteps, currentStepsComp, currentType);
-                routinesInfo.add(currentRoutine);
-            }
+
+            currentRoutine = new Routine(currentId, currentName, currentStatus, currentNSteps, currentStepsComp, currentType);
+
+        }
+        cursor.close();
+        db.close();
+
+        return  currentRoutine;
+    }
+
+    //Método para obtener solo las rutinas con un ID en especifico
+    public Task displayTaskInfo(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String [] projection = {
+                WorkOutContract.TaskEntry._ID ,
+                WorkOutContract.TaskEntry.COLUMN_TASK_NAME ,
+                WorkOutContract.TaskEntry.COLUMN_TASK_STATUS ,
+                WorkOutContract.TaskEntry.COLUMN_TASK_SETS ,
+                WorkOutContract.TaskEntry.COLUMN_TASK_TARGET_REPS ,
+                WorkOutContract.TaskEntry.COLUMN_TASK_CURRENT_REPS ,
+                WorkOutContract.TaskEntry.COLUMN_TASK_ID_ROUTINE
+        };
+
+        String selection = WorkOutContract.TaskEntry._ID + " = ? ";
+        String[] selectionArgs = { String.valueOf(id) };
+
+
+        @SuppressLint("Recycle") Cursor cursor = db.query(
+                WorkOutContract.TaskEntry.TABLE_NAME,
+                projection,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null
+        );
+
+        //Obtenemos los indices de las columnas
+        int idColumn = cursor.getColumnIndex(WorkOutContract.TaskEntry._ID);
+        int nameColumn = cursor.getColumnIndex(WorkOutContract.TaskEntry.COLUMN_TASK_NAME);
+        int statusColumn = cursor.getColumnIndex(WorkOutContract.TaskEntry.COLUMN_TASK_STATUS);
+        int setsColumn = cursor.getColumnIndex(WorkOutContract.TaskEntry.COLUMN_TASK_SETS);
+        int targetColumn = cursor.getColumnIndex(WorkOutContract.TaskEntry.COLUMN_TASK_TARGET_REPS);
+        int currentRepsColumn = cursor.getColumnIndex(WorkOutContract.TaskEntry.COLUMN_TASK_CURRENT_REPS);
+        int idRoutineColumn = cursor.getColumnIndex(WorkOutContract.TaskEntry.COLUMN_TASK_ID_ROUTINE);
+
+        Task currentTask = new Task();
+
+        if (cursor != null) {
+            cursor.moveToLast();
+            //Asignamos el valor en nuestras variables para usarlos en lo que necesitemos
+            int currentId = cursor.getInt(idColumn);
+            String currentName = cursor.getString(nameColumn);
+            String currentStatus = cursor.getString(statusColumn);
+            int currentSets = cursor.getInt(setsColumn);
+            int currentTarget = cursor.getInt(targetColumn);
+            int currentReps = cursor.getInt(currentRepsColumn);
+            int currentIdRoutine = cursor.getInt(idRoutineColumn);
+
+            currentTask = new Task(currentId, currentName, currentStatus, currentSets, currentTarget, currentReps, currentIdRoutine);
         }
 
-        return  routinesInfo;
+        //Cerramos el cursor y la conexion con la base de datos
+        cursor.close();
+        db.close();
+
+        return currentTask;
     }
 
     //Método para obtener los ejercicios de una rutina determinada
@@ -422,5 +490,61 @@ public class WorkOutDBHelper extends SQLiteOpenHelper {
         db.close();
 
         return info;
+    }
+
+    public int stepsCompletes(int id){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String sentencia = "SELECT COUNT (*) from Tasks where " + WorkOutContract.TaskEntry.COLUMN_TASK_ID_ROUTINE + " = " + id + " and " + WorkOutContract.TaskEntry.COLUMN_TASK_STATUS + " like 'Hecho'";
+        Cursor mCount = db.rawQuery(sentencia, null);
+        mCount.moveToFirst();
+        int count= mCount.getInt(0);
+        mCount.close();
+
+        return count;
+
+    }
+
+    public int routinesCompleted(){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String sentencia = "SELECT COUNT (*) from routines where " + WorkOutContract.RoutineEntry.COLUMN_ROUTINE_STATUS + " like 'Hecho'";
+        Cursor mCount = db.rawQuery(sentencia, null);
+        mCount.moveToFirst();
+        int count= mCount.getInt(0);
+        mCount.close();
+
+        return count;
+
+    }
+
+    public int routinesPredefinidas(){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String sentencia = "SELECT COUNT (*) from routines where " + WorkOutContract.RoutineEntry.COLUMN_ROUTINE_STATUS + " like 'Predef'";
+        Cursor mCount = db.rawQuery(sentencia, null);
+        mCount.moveToFirst();
+        int count= mCount.getInt(0);
+        mCount.close();
+
+        return count;
+
+    }
+
+    public int routinesOnGoing(){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String sentencia = "SELECT COUNT (*) from routines where " + WorkOutContract.RoutineEntry.COLUMN_ROUTINE_STATUS + " like 'Haciendo'";
+        Cursor mCount = db.rawQuery(sentencia, null);
+        mCount.moveToFirst();
+        int count= mCount.getInt(0);
+        mCount.close();
+
+        return count;
+
     }
 }

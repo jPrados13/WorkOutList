@@ -81,5 +81,6 @@ public class WorkOutRoutine extends AppCompatActivity {
         Intent i = new Intent(getApplicationContext(), UpdateTask.class);
         i.putExtra("IdTask", id);
         startActivity(i);
+        finish();
     }
 }

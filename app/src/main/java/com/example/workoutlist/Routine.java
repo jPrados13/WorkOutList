@@ -1,12 +1,12 @@
 package com.example.workoutlist;
 
 public class Routine {
-    int id_Routine;
-    String name;
-    String status;
-    int numberSteps;
-    int stepsCompleted;
-    String type;
+    private int id_Routine;
+    private String name;
+    private String status;
+    private int numberSteps;
+    private int stepsCompleted;
+    private String type;
 
     public Routine() {
     }
@@ -78,12 +78,13 @@ public class Routine {
 
     public int getProgress(){
 
-        int progress = 0;
+        double progress = 0;
 
         if (stepsCompleted>0){
-            progress = (numberSteps/stepsCompleted)*100;
+            progress = ((double)stepsCompleted/(double)numberSteps)*100;
         }
-        return progress;
+        int percent = (int)progress;
+        return percent;
     }
 
     public Routine rutinaTorso(){

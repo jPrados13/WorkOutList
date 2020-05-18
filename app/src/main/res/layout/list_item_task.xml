@@ -77,6 +77,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:progress="50"
+                android:max="100"
+                android:min="0"
                 android:progressTint="@color/colorAccent"/>
         </LinearLayout>
 

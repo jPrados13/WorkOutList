@@ -51,11 +51,10 @@
                     android:layout_margin="8dp">
 
                     <TextView
-                        android:id="@+id/textViewOnGoing"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.8"
-                        android:text="En Curso: "
+                        android:text="@string/onGoing"
                         android:elevation="4dp"
                         android:padding="4dp"
                         android:textColor="@color/colorAccent"
@@ -63,11 +62,11 @@
                         android:layout_margin="5dp"/>
 
                     <TextView
-                        android:id="@+id/textViewPercent"
+                        android:id="@+id/textViewNumberCurrents"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.2"
-                        android:text="%"
+                        android:text="0"
                         android:elevation="4dp"
                         android:padding="4dp"
                         android:textColor="@color/colorAccent"
@@ -75,14 +74,6 @@
                         android:layout_margin="5dp"/>
                 </LinearLayout>
 
-                <ProgressBar
-                    android:id="@+id/progressBarCurrents"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_marginHorizontal="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:progress="50"
-                    android:progressTint="@color/colorPrimaryDark"/>
 
             </LinearLayout>
 
@@ -202,11 +193,11 @@
                         android:layout_margin="5dp"/>
 
                     <TextView
-                        android:id="@+id/textViewPercentPredefine"
+                        android:id="@+id/textViewNumberPredefine"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.2"
-                        android:text="%"
+                        android:text="0"
                         android:elevation="4dp"
                         android:padding="4dp"
                         android:textColor="@color/colorAccent"
@@ -214,14 +205,7 @@
                         android:layout_margin="5dp"/>
                 </LinearLayout>
 
-                <ProgressBar
-                    android:id="@+id/progressBarPredefine"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_marginHorizontal="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:progress="50"
-                    android:progressTint="@color/colorPrimaryDark"/>
+
 
             </LinearLayout>
 

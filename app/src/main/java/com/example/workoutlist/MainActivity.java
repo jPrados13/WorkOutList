@@ -7,6 +7,9 @@ import android.content.Intent;
 import android.net.sip.SipSession;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
+
+import com.example.workoutlist.Data.WorkOutDBHelper;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -14,11 +17,25 @@ public class MainActivity extends AppCompatActivity {
     CardView completed;
     CardView predefine;
     CardView create;
+    TextView nCurrents;
+    TextView nCompleted;
+    TextView nPredef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        WorkOutDBHelper dbHelper = new WorkOutDBHelper(this);
+
+        nCompleted = findViewById(R.id.textViewNumberCompletes);
+        nCurrents = findViewById(R.id.textViewNumberCurrents);
+        nPredef = findViewById(R.id.textViewNumberPredefine);
+
+        nCurrents.setText(String.valueOf(dbHelper.routinesOnGoing()));
+        nCompleted.setText(String.valueOf(dbHelper.routinesCompleted()));
+        nPredef.setText(String.valueOf(dbHelper.routinesPredefinidas()));
+
 
         currentRoutines = findViewById(R.id.cardViewCurrentRoutines);
         completed = findViewById(R.id.cardViewRoutinesCompleted);

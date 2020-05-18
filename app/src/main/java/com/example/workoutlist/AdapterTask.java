@@ -49,7 +49,8 @@ public class AdapterTask extends ArrayAdapter<Task> {
         current = list_item.findViewById(R.id.textViewCurrentReps);
         current.setText("Actual: " + String.valueOf(currentTask.getCurrentReps()));
 
-
+        progress = list_item.findViewById(R.id.progressBarReps);
+        progress.setProgress(currentTask.getProgressTask());
 
 
         return list_item;

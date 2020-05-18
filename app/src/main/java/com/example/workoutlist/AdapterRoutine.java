@@ -50,6 +50,9 @@ public class AdapterRoutine extends ArrayAdapter<Routine> {
 
         type = list_item.findViewById(R.id.imageViewList);
 
+        progress = list_item.findViewById(R.id.progressBarRoutine);
+        progress.setProgress(currentRoutine.getProgress());
+
         setStyle(currentRoutine);
         return list_item;
     }

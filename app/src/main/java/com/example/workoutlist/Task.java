@@ -3,13 +3,14 @@ package com.example.workoutlist;
 import java.util.ArrayList;
 
 public class Task {
-    int id_Task;
-    String name;
-    String status;
-    int sets;
-    int targetReps;
-    int currentReps;
-    int codRoutine;
+
+    private int id_Task;
+    private String name;
+    private String status;
+    private int sets;
+    private int targetReps;
+    private int currentReps;
+    private int codRoutine;
 
     public Task() {
     }
@@ -90,12 +91,13 @@ public class Task {
     }
 
     public int getProgressTask(){
-        int progress = 0;
+        double progress = 0;
 
         if (currentReps>0){
-            progress = (targetReps/currentReps)*100;
+            progress = ((double) currentReps/(double)targetReps)*100;
         }
-        return progress;
+        int percent = (int)progress;
+        return percent;
     }
 
     public Task ejer1(){

@@ -3,8 +3,9 @@
     <string name="currentRoutines">Rutinas Actuales</string>
     <string name="completedRoutines">Rutinas Completadas</string>
     <string name="predefinedRoutines">Rutinas Predefinidas</string>
+    <string name="onGoing">En Curso: </string>
     <string name="totalCompleted">Totales completadas: </string>
-    <string name="percentCompleted">Porcentaje completado: </string>
+    <string name="percentCompleted">Rutinas actuales: </string>
     <string name="createRoutine">Crea tu propia rutina</string>
     <string name="name">Nombre: </string>
     <string name="hintName">Nombre de la rutina</string>
@@ -17,4 +18,6 @@
     <string name="workOutRoutine">Rutina de entrenamiento</string>
     <string name="addTask">Añade los ejercicios</string>
     <string name="createRoutines">Crea tu rutina</string>
+    <string name="currentReps">Repeticiones actuales</string>
+    <string name="refresh">Actualizar</string>
 </resources>
