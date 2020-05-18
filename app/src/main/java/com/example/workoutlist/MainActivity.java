@@ -8,6 +8,7 @@ import android.net.sip.SipSession;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.workoutlist.Data.WorkOutDBHelper;
 
@@ -21,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
     TextView nCompleted;
     TextView nPredef;
 
+    int numberComp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,8 +35,10 @@ public class MainActivity extends AppCompatActivity {
         nCurrents = findViewById(R.id.textViewNumberCurrents);
         nPredef = findViewById(R.id.textViewNumberPredefine);
 
+        numberComp = dbHelper.routinesCompleted();
+
         nCurrents.setText(String.valueOf(dbHelper.routinesOnGoing()));
-        nCompleted.setText(String.valueOf(dbHelper.routinesCompleted()));
+        nCompleted.setText(String.valueOf(numberComp));
         nPredef.setText(String.valueOf(dbHelper.routinesPredefinidas()));
 
 
@@ -65,7 +70,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
                 break;
             case R.id.cardViewRoutinesCompleted:
-
+                if (numberComp==0){
+                    Toast toastTrue = Toast.makeText(getApplicationContext(), "Aún no has completado ninguna rutina.", Toast.LENGTH_LONG);
+                    toastTrue.show();
+                }else{
+                    i = new Intent(this, CompletedRoutines.class);
+                    startActivity(i);
+                }
                 break;
             case  R.id.cardViewExampleRoutines:
 

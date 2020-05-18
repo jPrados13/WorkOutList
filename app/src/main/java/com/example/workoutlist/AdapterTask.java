@@ -41,7 +41,7 @@ public class AdapterTask extends ArrayAdapter<Task> {
         Task currentTask = getItem(position);
 
         name = list_item.findViewById(R.id.textViewTaskName);
-        name.setText(currentTask.getName());
+        name.setText(currentTask.getSets() + "X " + currentTask.getName());
 
         target = list_item.findViewById(R.id.textViewTargetReps);
         target.setText("Objetivo: " + String.valueOf(currentTask.getTargetReps()));

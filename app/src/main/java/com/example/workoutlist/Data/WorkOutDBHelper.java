@@ -238,7 +238,7 @@ public class WorkOutDBHelper extends SQLiteOpenHelper {
         };
 
         String selection = WorkOutContract.RoutineEntry.COLUMN_ROUTINE_STATUS + " = ?";
-        String[] selectionArgs = {"Hecha"};
+        String[] selectionArgs = {"Hecho"};
         @SuppressLint("Recycle") Cursor cursor = db.query(
                 WorkOutContract.RoutineEntry.TABLE_NAME,
                 projection,

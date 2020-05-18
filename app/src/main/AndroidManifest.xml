@@ -9,13 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UpdateTask"></activity>
+        <activity android:name=".CompletedRoutines"
+            android:label="@string/workOutRoutine"
+            android:parentActivityName=".MainActivity"></activity>
+        <activity android:name=".UpdateTask" />
         <activity
             android:name=".WorkOutRoutine"
             android:label="@string/workOutRoutine"
             android:parentActivityName=".CurrentRoutines"
-            android:theme="@style/AppThemeCompat"
-            />
+            android:theme="@style/AppThemeCompat" />
         <activity
             android:name=".AddTask"
             android:label="@string/addTask"
