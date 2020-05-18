@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import com.example.workoutlist.Routine;
 import com.example.workoutlist.Task;
 
+import java.net.StandardSocketOptions;
 import java.util.ArrayList;
 
 public class WorkOutDBHelper extends SQLiteOpenHelper {
@@ -54,6 +55,7 @@ public class WorkOutDBHelper extends SQLiteOpenHelper {
                 + WorkOutContract.RoutineEntry.TABLE_NAME + " (" + WorkOutContract.RoutineEntry._ID + ") on delete cascade on update cascade " + ");";
 
         db.execSQL(SQL_CREATE_ROUTINE_TABLE);
+
 
     }
 
@@ -163,6 +165,8 @@ public class WorkOutDBHelper extends SQLiteOpenHelper {
 
         return db.delete("Tasks", "ID = ?",  new String[] {Integer.toString(id)});
     }*/
+
+
 
     //Mostrar Rutinas no completadas
     public ArrayList<Routine> displayDataBaseInfoCurrents() {
@@ -520,20 +524,6 @@ public class WorkOutDBHelper extends SQLiteOpenHelper {
 
     }
 
-    public int routinesPredefinidas(){
-
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        String sentencia = "SELECT COUNT (*) from routines where " + WorkOutContract.RoutineEntry.COLUMN_ROUTINE_STATUS + " like 'Predef'";
-        Cursor mCount = db.rawQuery(sentencia, null);
-        mCount.moveToFirst();
-        int count= mCount.getInt(0);
-        mCount.close();
-
-        return count;
-
-    }
-
     public int routinesOnGoing(){
 
         SQLiteDatabase db = this.getReadableDatabase();
@@ -546,5 +536,62 @@ public class WorkOutDBHelper extends SQLiteOpenHelper {
 
         return count;
 
+    }
+
+    public ArrayList<Routine> displayDataBaseInfoPredef() {
+
+        ArrayList<Routine> routinesInfo = new ArrayList<Routine>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        //La proyeccion nos va a indicar los campos de la tabla que nos interesa consultar.
+        String [] projection = {
+                WorkOutContract.RoutineEntry._ID ,
+                WorkOutContract.RoutineEntry.COLUMN_ROUTINE_NAME ,
+                WorkOutContract.RoutineEntry.COLUMN_ROUTINE_STATUS ,
+                WorkOutContract.RoutineEntry.COLUMN_ROUTINE_NSTEPS ,
+                WorkOutContract.RoutineEntry.COLUMN_ROUTINE_STEPSCOMP ,
+                WorkOutContract.RoutineEntry.COLUMN_ROUTINE_TYPE
+        };
+
+        String selection = WorkOutContract.RoutineEntry.COLUMN_ROUTINE_STATUS + " = ?";
+        String[] selectionArgs = {"Predefinida"};
+        @SuppressLint("Recycle") Cursor cursor = db.query(
+                WorkOutContract.RoutineEntry.TABLE_NAME,
+                projection,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null
+        );
+
+        //Obtenemos los indices de las columnas
+        int idColumn = cursor.getColumnIndex(WorkOutContract.RoutineEntry._ID);
+        int nameColumn = cursor.getColumnIndex(WorkOutContract.RoutineEntry.COLUMN_ROUTINE_NAME);
+        int statusColumn = cursor.getColumnIndex(WorkOutContract.RoutineEntry.COLUMN_ROUTINE_STATUS);
+        int nStepsColumn = cursor.getColumnIndex(WorkOutContract.RoutineEntry.COLUMN_ROUTINE_NSTEPS);
+        int stepsCompColumn = cursor.getColumnIndex(WorkOutContract.RoutineEntry.COLUMN_ROUTINE_STEPSCOMP);
+        int typeColumn = cursor.getColumnIndex(WorkOutContract.RoutineEntry.COLUMN_ROUTINE_TYPE);
+
+        //Con cada uno de los indices podemos recorrer las filas
+
+        while (cursor.moveToNext()){
+            int currentId = cursor.getInt(idColumn);
+            String currentName = cursor.getString(nameColumn);
+            String currentStatus = cursor.getString(statusColumn);
+            int currentNSteps = cursor.getInt(nStepsColumn);
+            int currentStepsComp = cursor.getInt(stepsCompColumn);
+            String currentType = cursor.getString(typeColumn);
+
+            if (currentName.isEmpty() || currentStatus.isEmpty() || Integer.toString(currentNSteps).isEmpty() || Integer.toString(currentStepsComp).isEmpty() || currentType.isEmpty()){
+                routinesInfo.add(null);
+            }else {
+                boolean status = false;
+                Routine currentRoutine = new Routine(currentId, currentName, currentStatus, currentNSteps, currentStepsComp, currentType);
+                routinesInfo.add(currentRoutine);
+            }
+        }
+
+        return  routinesInfo;
     }
 }

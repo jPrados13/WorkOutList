@@ -100,7 +100,7 @@ public class Task {
         return percent;
     }
 
-    public Task ejer1(){
+   /* public Task ejer1(){
 
         String name = "dominadas";
         String status = "Haciendo";
@@ -170,5 +170,5 @@ public class Task {
         rutinaTorso.add(ejer5());
         return rutinaTorso;
 
-    }
+    }*/
 }

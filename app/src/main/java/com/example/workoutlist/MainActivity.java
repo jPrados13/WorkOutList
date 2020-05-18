@@ -16,11 +16,11 @@ public class MainActivity extends AppCompatActivity {
 
     CardView currentRoutines;
     CardView completed;
-    CardView predefine;
+
     CardView create;
     TextView nCurrents;
     TextView nCompleted;
-    TextView nPredef;
+
 
     int numberComp;
 
@@ -33,18 +33,18 @@ public class MainActivity extends AppCompatActivity {
 
         nCompleted = findViewById(R.id.textViewNumberCompletes);
         nCurrents = findViewById(R.id.textViewNumberCurrents);
-        nPredef = findViewById(R.id.textViewNumberPredefine);
+
 
         numberComp = dbHelper.routinesCompleted();
 
         nCurrents.setText(String.valueOf(dbHelper.routinesOnGoing()));
         nCompleted.setText(String.valueOf(numberComp));
-        nPredef.setText(String.valueOf(dbHelper.routinesPredefinidas()));
+
 
 
         currentRoutines = findViewById(R.id.cardViewCurrentRoutines);
         completed = findViewById(R.id.cardViewRoutinesCompleted);
-        predefine = findViewById(R.id.cardViewExampleRoutines);
+
         create = findViewById(R.id.cardViewCreate);
 
         View.OnClickListener listener = new View.OnClickListener() {
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         };
         currentRoutines.setOnClickListener(listener);
         completed.setOnClickListener(listener);
-        predefine.setOnClickListener(listener);
+
         create.setOnClickListener(listener);
 
 
@@ -77,9 +77,6 @@ public class MainActivity extends AppCompatActivity {
                     i = new Intent(this, CompletedRoutines.class);
                     startActivity(i);
                 }
-                break;
-            case  R.id.cardViewExampleRoutines:
-
                 break;
             case  R.id.cardViewCreate:
                 i = new Intent(this, CreateRoutine.class);
