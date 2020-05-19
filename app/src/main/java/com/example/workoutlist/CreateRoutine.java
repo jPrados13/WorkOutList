@@ -52,6 +52,9 @@ public class CreateRoutine extends AppCompatActivity {
         //set the spinners adapter to the previously created one.
         routinetType.setAdapter(adapterType);
 
+        Toast toast = Toast.makeText(getApplicationContext(), "Primero elija el nombre y el número de ejercicios.", Toast.LENGTH_LONG);
+        toast.show();
+
         final View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {

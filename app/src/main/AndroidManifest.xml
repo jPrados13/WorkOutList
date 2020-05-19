@@ -4,16 +4,26 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/icon_app"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/icon_app"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Splash">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".CompletedRoutines"
             android:label="@string/workOutRoutine"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".UpdateTask" />
+        <activity
+            android:name=".UpdateTask"
+            android:label="@string/updateTask"
+            android:parentActivityName=".CurrentRoutines" />
         <activity
             android:name=".WorkOutRoutine"
             android:label="@string/workOutRoutine"
@@ -32,11 +42,7 @@
             android:label="@string/currentRoutines"
             android:parentActivityName=".MainActivity" />
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

@@ -46,7 +46,7 @@ public class AdapterRoutine extends ArrayAdapter<Routine> {
         target.setText("Objetivos: " + String.valueOf(currentRoutine.getNumberSteps()));
 
         current = list_item.findViewById(R.id.textViewCurrent);
-        current.setText("Complidos:" + String.valueOf(currentRoutine.getStepsCompleted()));
+        current.setText("Cumplidos:" + String.valueOf(currentRoutine.getStepsCompleted()));
 
         type = list_item.findViewById(R.id.imageViewList);
 

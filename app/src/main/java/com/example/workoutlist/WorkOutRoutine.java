@@ -59,6 +59,8 @@ public class WorkOutRoutine extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 mDBHelper.deleteRoutine(id);
+                                Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                                startActivity(i);
                                 finish();
                             }
                         }).setNegativeButton("No", new DialogInterface.OnClickListener() {

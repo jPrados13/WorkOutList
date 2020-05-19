@@ -61,6 +61,9 @@ public class AddTask extends AppCompatActivity {
         lessSets = findViewById(R.id.buttonLessSets);
         add = findViewById(R.id.buttonSaveTask);
 
+        Toast toast = Toast.makeText(getApplicationContext(), "Ahora cree cada uno de los ejercicios.", Toast.LENGTH_LONG);
+        toast.show();
+
         final View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
