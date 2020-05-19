@@ -56,7 +56,8 @@ public class WorkOutDBHelper extends SQLiteOpenHelper {
 
         db.execSQL(SQL_CREATE_ROUTINE_TABLE);
 
-
+       insertPredefRoutineAndTask(db);
+        
     }
 
     @Override
@@ -106,10 +107,12 @@ public class WorkOutDBHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
-        if (stepsCompletes(rutina.getId_Routine())>=rutina.getNumberSteps()){
-            rutina.setStatus("Hecho");
-        }else{
-            rutina.setStatus("Haciendo");
+        if (!rutina.getStatus().equalsIgnoreCase("Predefinida")){
+            if (stepsCompletes(rutina.getId_Routine())>=rutina.getNumberSteps()){
+                rutina.setStatus("Hecho");
+            }else{
+                rutina.setStatus("Haciendo");
+            }
         }
 
         ContentValues contentValues = new ContentValues();
@@ -274,7 +277,7 @@ public class WorkOutDBHelper extends SQLiteOpenHelper {
             if (currentName.isEmpty() || currentStatus.isEmpty() || Integer.toString(currentNSteps).isEmpty() || Integer.toString(currentStepsComp).isEmpty() || currentType.isEmpty()){
                 routinesInfo.add(null);
             }else {
-                boolean status = false;
+                
                 Routine currentRoutine = new Routine(currentId, currentName, currentStatus, currentNSteps, currentStepsComp, currentType);
                 routinesInfo.add(currentRoutine);
             }
@@ -283,7 +286,7 @@ public class WorkOutDBHelper extends SQLiteOpenHelper {
         return  routinesInfo;
     }
 
-    //Método para obtener solo las rutinas con un ID en especifico
+    //Método para obtener solo la rutina con un ID en especifico
     public Routine displayRoutineInfo(int id) {
 
         Routine currentRoutine = new Routine();
@@ -538,6 +541,20 @@ public class WorkOutDBHelper extends SQLiteOpenHelper {
 
     }
 
+    public int routinesPredef(){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String sentencia = "SELECT COUNT (*) from routines where " + WorkOutContract.RoutineEntry.COLUMN_ROUTINE_STATUS + " like 'Predefinida'";
+        Cursor mCount = db.rawQuery(sentencia, null);
+        mCount.moveToFirst();
+        int count= mCount.getInt(0);
+        mCount.close();
+
+        return count;
+
+    }
+
     public ArrayList<Routine> displayDataBaseInfoPredef() {
 
         ArrayList<Routine> routinesInfo = new ArrayList<Routine>();
@@ -554,7 +571,9 @@ public class WorkOutDBHelper extends SQLiteOpenHelper {
         };
 
         String selection = WorkOutContract.RoutineEntry.COLUMN_ROUTINE_STATUS + " = ?";
+        
         String[] selectionArgs = {"Predefinida"};
+        
         @SuppressLint("Recycle") Cursor cursor = db.query(
                 WorkOutContract.RoutineEntry.TABLE_NAME,
                 projection,
@@ -586,12 +605,56 @@ public class WorkOutDBHelper extends SQLiteOpenHelper {
             if (currentName.isEmpty() || currentStatus.isEmpty() || Integer.toString(currentNSteps).isEmpty() || Integer.toString(currentStepsComp).isEmpty() || currentType.isEmpty()){
                 routinesInfo.add(null);
             }else {
-                boolean status = false;
                 Routine currentRoutine = new Routine(currentId, currentName, currentStatus, currentNSteps, currentStepsComp, currentType);
                 routinesInfo.add(currentRoutine);
             }
         }
 
         return  routinesInfo;
+    }
+
+    public void insertPredefRoutineAndTask(SQLiteDatabase db){
+        //Inserta una rutina predefinida
+
+        String name = "Rutina Torso";
+        String status = "Predefinida";
+        int nSteps = 5;
+        int stepsComp = 0;
+        String type = "fitness";
+
+        ContentValues contentValuesR = new ContentValues();
+        contentValuesR.put(WorkOutContract.RoutineEntry.COLUMN_ROUTINE_NAME, name);
+        contentValuesR.put(WorkOutContract.RoutineEntry.COLUMN_ROUTINE_STATUS, status);
+        contentValuesR.put(WorkOutContract.RoutineEntry.COLUMN_ROUTINE_NSTEPS, nSteps);
+        contentValuesR.put(WorkOutContract.RoutineEntry.COLUMN_ROUTINE_STEPSCOMP, stepsComp);
+        contentValuesR.put(WorkOutContract.RoutineEntry.COLUMN_ROUTINE_TYPE, type);
+
+        db.insert(WorkOutContract.RoutineEntry.TABLE_NAME, null, contentValuesR);
+
+        //Inserta los ejercicios de la rutina predefinida
+
+        String[] nameT = {"Dominadas", "Flexiones", "Extension Triceps", "Curl de Biceps", "Remo al menton"};
+        String statusT = "Haciendo";
+        int[] sets = {3, 3, 2, 2, 3};
+        int[] targetReps = {15, 20, 20, 15, 15};
+        int currentReps = 0;
+        int codRoutine = 1;
+
+
+
+        for ( int i = 0; i < nameT.length ; i++ ){
+
+            ContentValues contentValuesT = new ContentValues();
+            contentValuesT.put(WorkOutContract.TaskEntry.COLUMN_TASK_NAME, nameT[i]);
+            contentValuesT.put(WorkOutContract.TaskEntry.COLUMN_TASK_STATUS, statusT);
+            contentValuesT.put(WorkOutContract.TaskEntry.COLUMN_TASK_SETS, sets[i]);
+            contentValuesT.put(WorkOutContract.TaskEntry.COLUMN_TASK_TARGET_REPS, targetReps[i]);
+            contentValuesT.put(WorkOutContract.TaskEntry.COLUMN_TASK_CURRENT_REPS, currentReps);
+            contentValuesT.put(WorkOutContract.TaskEntry.COLUMN_TASK_ID_ROUTINE, codRoutine);
+
+            db.insert(WorkOutContract.TaskEntry.TABLE_NAME, null, contentValuesT);
+        }
+
+
     }
 }

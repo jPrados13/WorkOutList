@@ -87,16 +87,5 @@ public class Routine {
         return percent;
     }
 
-    /*public Routine rutinaTorso(){
 
-        String name = "Rutina Torso";
-        String status = "Predefinida";
-        int nSteps = 5;
-        int stepsComp = 0;
-        String type = "fitness";
-
-        Routine rutina = new Routine(name, status, nSteps, stepsComp, type);
-
-        return rutina;
-    }*/
 }
