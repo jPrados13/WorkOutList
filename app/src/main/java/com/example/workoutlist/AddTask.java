@@ -111,8 +111,8 @@ public class AddTask extends AppCompatActivity {
         }
     }
     public void decreaseReps (){
-        if(targetReps<=0){
-            Toast toastMin = Toast.makeText(getApplicationContext(), "No se puede ser menos de 1", Toast.LENGTH_SHORT);
+        if(targetReps<1){
+            Toast toastMin = Toast.makeText(getApplicationContext(), "No puede ser menos de 1", Toast.LENGTH_SHORT);
             toastMin.show();
         }else{
             targetReps--;
@@ -132,8 +132,8 @@ public class AddTask extends AppCompatActivity {
     }
 
     public void decreaseSets (){
-        if(sets<=0){
-            Toast toastMin = Toast.makeText(getApplicationContext(), "No se puede ser menos de 1", Toast.LENGTH_SHORT);
+        if(sets<1){
+            Toast toastMin = Toast.makeText(getApplicationContext(), "No puede ser menos de 1", Toast.LENGTH_SHORT);
             toastMin.show();
         }else{
             sets--;
@@ -158,6 +158,14 @@ public class AddTask extends AppCompatActivity {
         if (name.length()<1){
             valid = false;
             Toast toastFalse = Toast.makeText(getApplicationContext(), "El nombre no puede quedar vacio", Toast.LENGTH_LONG);
+            toastFalse.show();
+        }else if (sets<1){
+            valid = false;
+            Toast toastFalse = Toast.makeText(getApplicationContext(), "La rutina no puede tener menos de 1 set", Toast.LENGTH_LONG);
+            toastFalse.show();
+        }else if (targetReps<1){
+            valid = false;
+            Toast toastFalse = Toast.makeText(getApplicationContext(), "La rutina no puede tener menos de 1 repeticion", Toast.LENGTH_LONG);
             toastFalse.show();
         }
         return valid;

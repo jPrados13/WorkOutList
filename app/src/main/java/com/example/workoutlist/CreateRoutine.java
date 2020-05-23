@@ -117,6 +117,10 @@ public class CreateRoutine extends AppCompatActivity {
             valid = false;
             Toast toastFalse = Toast.makeText(getApplicationContext(), "El nombre no puede quedar vacio", Toast.LENGTH_LONG);
             toastFalse.show();
+        }else if (number<1){
+            valid = false;
+            Toast toastFalse = Toast.makeText(getApplicationContext(), "La rutina no puede tener menos de 1 ejercicio", Toast.LENGTH_LONG);
+            toastFalse.show();
         }
         return valid;
     }

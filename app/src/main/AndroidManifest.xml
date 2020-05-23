@@ -9,7 +9,14 @@
         android:roundIcon="@mipmap/icon_app"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PredefRutines"></activity>
+        <activity android:name=".WorkOutCompletes"
+            android:label="@string/workOutRoutine"
+            android:parentActivityName=".CompletedRoutines"
+            android:theme="@style/AppThemeCompat"></activity>
+        <activity
+            android:name=".PredefRutines"
+            android:label="@string/predefinedRoutines"
+            android:parentActivityName=".MainActivity" />
         <activity android:name=".Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,7 +49,7 @@
             android:name=".CurrentRoutines"
             android:label="@string/currentRoutines"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

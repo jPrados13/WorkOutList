@@ -6,12 +6,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".UpdateTask"
-    android:background="@color/newRoutine">
+    android:background="@drawable/formbckg">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@color/newRoutine">
+        android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -27,7 +28,7 @@
                 android:text="@string/name"
                 android:textSize="18sp"
                 android:textColor="@color/colorAccent"
-                android:background="@color/colorElevationText"/>
+                />
 
             <EditText
                 android:id="@+id/editTextTaskUpdateName"
@@ -60,7 +61,7 @@
                 android:text="@string/currentReps"
                 android:textSize="18sp"
                 android:textColor="@color/colorAccent"
-                android:background="@color/colorElevationText"/>
+                />
 
             <LinearLayout
                 android:layout_width="match_parent"
